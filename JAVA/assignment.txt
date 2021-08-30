@@ -1,0 +1,66 @@
+Rectangle:
+ 
+import java.awt.*; 
+import java.applet.Applet; 
+public class GrpRectEx extends Applet 
+{ 
+ public void paint(Graphics grp) 
+ { 
+  grp.setColor(Color.blue); 
+  grp.drawRect(100, 50, 150, 150); 
+ } 
+} 
+/*
+<applet code="GrpRectEx.class" width="400" height="400">
+</applet>
+*/
+------------------------------------
+line:
+import java.awt.*; 
+import java.applet.Applet; 
+public class GrpLineEx extends Applet 
+{ 
+ public void paint(Graphics grp) 
+ { 
+  grp.setColor(Color.blue); 
+  grp.drawLine(50, 30, 400, 30); 
+ } 
+} 
+/*
+<applet code="GrpLineEx.class" width="400" height="400">
+</applet>
+*/ 
+ 
+ellipse:
+ 
+ 
+import java.awt.*;
+import java.applet.*;
+public class DrawEllipses extends Applet
+{
+public void paint(Graphics g)
+ {
+  g.drawOval(10, 10, 50, 50);
+  g.setColor(Color.GREEN);
+  g.fillOval(100, 10, 75, 50);
+  g.setColor(Color.cyan);
+  g.drawOval(190, 10, 90,30);
+  g.fillOval(70, 90, 140, 100);
+}
+}
+/*
+<applet code="DrawEllipses" width=300 height=200>
+</applet>
+*/
+ 
+ARC:
+import java.awt.*;
+import java.applet.*;
+public class Mouth extends Applet
+{
+public void paint (Graphics g)
+{
+  g.drawArc(60, 125, 80, 40, 180, 180);   // Draw an Arc Shape
+  g.fillArc(60, 125, 80, 40, 180, 180);  // Fill an Arc Shape
+  }
+}
