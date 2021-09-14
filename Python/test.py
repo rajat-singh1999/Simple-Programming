@@ -1,9 +1,8 @@
-def fun(*args, **kwargs):
-    st = ''
-    [print(i) for i in a]
-    print("Meet some honorary mentions:")
-    [print(f"{key} is {value}") for key, value in kwargs.items()]
 
-a = ["Rajat", "Raja", "Bikas", "Narendar", "Amitesh", "Sangharsh"]
-b = {"Rajat": "Late Comer", "Bikas": "Slow learner", "Narendar": "Politician"}
-fun(*a, **b)
+def main():
+    squared = sorted({x**2 for x in [1,1,2,3,4,4,4,4,4,5,5,12]})
+    # squared = squared.sort()
+    print(squared)
+
+if __name__ == "__main__":
+    main()

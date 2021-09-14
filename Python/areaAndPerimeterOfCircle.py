@@ -4,6 +4,7 @@ def area(r):
 def perimeter(r):
     return 2*3.142*r
 
+
 r = float(input("Input Radius: "))
 
 print("Area of Circle: ",area(r))
