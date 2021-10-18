@@ -44,7 +44,7 @@ class Racecar
     }
 }
 
-class RaceCar
+public class RaceCar
 {
     public static void main(String args[])
     {

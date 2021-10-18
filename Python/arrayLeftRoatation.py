@@ -2,7 +2,6 @@ import array as arr
 
 def rotLeft(a, d):
     n = len(a)
-    print("Indexes are:")
     for i in range(d):
         a = a[1:len(a)]+a[:1]
     return a

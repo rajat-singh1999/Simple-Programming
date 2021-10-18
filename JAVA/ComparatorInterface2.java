@@ -27,7 +27,7 @@ class StudentSortingComparator implements Comparator<Student>{
     }
 }
 
-class ComparatorInterface2{
+public class ComparatorInterface2{
     public static void main(String[] args){
         ArrayList<Student> arr = new ArrayList<Student>();
         
