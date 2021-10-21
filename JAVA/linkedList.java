@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Node{
     int data;
     Node next=null;
@@ -11,7 +13,6 @@ class Node{
 
 class LList{
     Node head;
-    
     
     int size(){
         if(head==null){
@@ -41,6 +42,23 @@ class LList{
                 temp = temp.next;
             }while(temp!=null);
         }
+    }
+
+    void printListInReverse(){
+        if(head==null){
+            System.out.println("Nothing to print...");
+        }
+        else{
+            reversePrint(head);
+        }
+    }
+    
+    void reversePrint(Node head){
+        if(head==null) return;
+
+        reversePrint(head.next);
+
+        System.out.print(" <--" + head.data);
     }
 
     void add(int d){
@@ -141,6 +159,107 @@ class LList{
             }
         }
     }
+
+    void deleteFirstOccur(int d){
+        if(head==null){
+            System.out.println("Nothing to delete...");
+        }
+        else{
+            Node temp = head;
+            Node prev = null;
+            while(temp!=null){
+                if(temp.data==d){
+                    if(prev==null){
+                        head = head.next;
+                        return;
+                    }
+                    else{
+                        prev.next=temp.next;
+                        return;
+                    }
+                }
+                prev = temp;
+                temp = temp.next;
+            }
+        }
+
+    }
+
+    void physicalReverse(){
+        if(head==null){
+            System.out.println("Nothing to show...");
+            return;
+        }
+        
+        Node mid = head;
+        Node left = null;
+        Node right = null;
+        while(mid!=null){
+            right = mid.next;
+            mid.next = left;
+            left = mid;
+            mid = right;
+        }
+        head = left;
+    }
+
+    int get(int index){
+        if(head==null){
+            System.out.println("List is empty");
+            return -9999;
+        }
+		else if(index<0 || index>size()-1){
+			System.out.println("Index out of bounds...");
+			return -9999;
+		}
+        else{
+            int i = 0;
+			Node temp = head;
+			while(temp!=null){
+				if(i==index)
+					return temp.data;
+				temp = temp.next;
+				i++;
+			}
+            return 0;
+        }
+    }
+
+    void removeDuplicates(){
+        if(head==null){
+            System.out.println("List is empty!");
+        }
+
+        else{
+            Node temp = head;
+            ArrayList<Integer> arr = new ArrayList<>();
+            Node prev = null;
+
+            while(temp!=null){
+                if(arr.contains(temp.data)){
+                    prev.next = temp.next;
+                    temp = temp.next;
+                    continue;
+                }
+                arr.add(temp.data);
+                prev = temp;
+                temp = temp.next;
+            }
+        }
+    }
+
+    int detectLoop(){
+        ArrayList<Node> arr = new ArrayList<>();
+        Node temp = head;
+        while(temp!=null){
+            if(arr.contains(temp)){
+                return 1;
+            }
+            arr.add(temp);
+            temp = temp.next;
+        }
+        return 0;
+    }
 }
 
 public class linkedList{
@@ -148,322 +267,27 @@ public class linkedList{
         LList ll = new LList();
         ll.add(20);
         ll.add(30);
-        ll.add(40);
+        ll.add(30);
         ll.add(50);
-        ll.add(60);
+        ll.add(30);
+        ll.add(50);
+        ll.add(58);
+        ll.add(51);
         ll.add(70);
+        ll.add(340);
+        ll.add(56);
+
         ll.printList();
-        for(int i=0;i<10;i++){
-            ll.deleteEnd();
-        }
+        ll.removeDuplicates();
+        System.out.println();
         ll.printList();
     }
 }
 
-
-
-
-
-
-// import java.util.*;
-
-// // import java.io.*;
-
-// // Java program to implement
-// // a Singly Linked List
-// public class linkedList {
-
-// 	Node head; // head of list
-
-// 	// Linked list Node.
-// 	// Node is a static nested class
-// 	// so main() can access it
-// 	static class Node {
-
-// 		int data;
-// 		Node next;
-
-// 		// Constructor
-// 		Node(int d)
-// 		{
-// 			data = d;
-// 			next = null;
-// 		}
-// 	}
-
-// 	// **************INSERTION**************
-
-// 	// Method to insert a new node
-// 	public static linkedList insert(linkedList list,
-// 									int data)
-// 	{
-// 		// Create a new node with given data
-// 		Node new_node = new Node(data);
-// 		new_node.next = null;
-
-// 		// If the Linked List is empty,
-// 		// then make the new node as head
-// 		if (list.head == null) {
-// 			list.head = new_node;
-// 		}
-// 		else {
-// 			// Else traverse till the last node
-// 			// and insert the new_node there
-// 			Node last = list.head;
-// 			while (last.next != null) {
-// 				last = last.next;
-// 			}
-
-// 			// Insert the new_node at last node
-// 			last.next = new_node;
-// 		}
-
-// 		// Return the list by head
-// 		return list;
-// 	}
-
-// 	// **************TRAVERSAL**************
-
-// 	// Method to print the linkedList.
-// 	public static void printList(linkedList list)
-// 	{
-// 		Node currNode = list.head;
-
-// 		System.out.print("\nlinkedList: ");
-
-// 		// Traverse through the linkedList
-// 		while (currNode != null) {
-// 			// Print the data at current node
-// 			System.out.print(currNode.data + " ");
-
-// 			// Go to next node
-// 			currNode = currNode.next;
-// 		}
-// 		System.out.println("\n");
-// 	}
-
-// 	// **************DELETION BY KEY**************
-
-// 	// Method to delete a node in the linkedList by KEY
-// 	public static linkedList deleteByKey(linkedList list,
-// 										int key)
-// 	{
-// 		// Store head node
-// 		Node currNode = list.head, prev = null;
-
-// 		//
-// 		// CASE 1:
-// 		// If head node itself holds the key to be deleted
-
-// 		if (currNode != null && currNode.data == key) {
-// 			list.head = currNode.next; // Changed head
-
-// 			// Display the message
-// 			System.out.println(key + " found and deleted");
-
-// 			// Return the updated List
-// 			return list;
-// 		}
-
-// 		//
-// 		// CASE 2:
-// 		// If the key is somewhere other than at head
-// 		//
-
-// 		// Search for the key to be deleted,
-// 		// keep track of the previous node
-// 		// as it is needed to change currNode.next
-// 		while (currNode != null && currNode.data != key) {
-// 			// If currNode does not hold key
-// 			// continue to next node
-// 			prev = currNode;
-// 			currNode = currNode.next;
-// 		}
-
-// 		// If the key was present, it should be at currNode
-// 		// Therefore the currNode shall not be null
-// 		if (currNode != null) {
-// 			// Since the key is at currNode
-// 			// Unlink currNode from linked list
-// 			prev.next = currNode.next;
-
-// 			// Display the message
-// 			System.out.println(key + " found and deleted");
-// 		}
-
-// 		//
-// 		// CASE 3: The key is not present
-// 		//
-
-// 		// If key was not present in linked list
-// 		// currNode should be null
-// 		if (currNode == null) {
-// 			// Display the message
-// 			System.out.println(key + " not found");
-// 		}
-
-// 		// return the List
-// 		return list;
-// 	}
-
-// 	// **************DELETION AT A POSITION**************
-
-// 	// Method to delete a node in the linkedList by POSITION
-// 	public static linkedList deleteAtPosition(linkedList list, int index)
-// 	{
-// 		// Store head node
-// 		Node currNode = list.head, prev = null;
-
-// 		//
-// 		// CASE 1:
-// 		// If index is 0, then head node itself is to be
-// 		// deleted
-
-// 		if (index == 0 && currNode != null) {
-// 			list.head = currNode.next; // Changed head
-
-// 			// Display the message
-// 			System.out.println(
-// 				index + " position element deleted");
-
-// 			// Return the updated List
-// 			return list;
-// 		}
-
-// 		//
-// 		// CASE 2:
-// 		// If the index is greater than 0 but less than the
-// 		// size of linkedList
-// 		//
-// 		// The counter
-// 		int counter = 0;
-
-// 		// Count for the index to be deleted,
-// 		// keep track of the previous node
-// 		// as it is needed to change currNode.next
-// 		while (currNode != null) {
-
-// 			if (counter == index) {
-// 				// Since the currNode is the required
-// 				// position Unlink currNode from linked list
-// 				prev.next = currNode.next;
-
-// 				// Display the message
-// 				System.out.println(
-// 					index + " position element deleted");
-// 				break;
-// 			}
-// 			else {
-// 				// If current position is not the index
-// 				// continue to next node
-// 				prev = currNode;
-// 				currNode = currNode.next;
-// 				counter++;
-// 			}
-// 		}
-
-// 		// If the position element was found, it should be
-// 		// at currNode Therefore the currNode shall not be
-// 		// null
-// 		//
-// 		// CASE 3: The index is greater than the size of the
-// 		// linkedList
-// 		//
-// 		// In this case, the currNode should be null
-// 		if (currNode == null) {
-// 			// Display the message
-// 			System.out.println(
-// 				index + " position element not found");
-// 		}
-
-// 		// return the List
-// 		return list;
-// 	}
-
-// 	// **************MAIN METHOD**************
-
-// 	// method to create a Singly linked list with n nodes
-// 	public static void main(String[] args)
-// 	{
-// 		/* Start with the empty list. */
-// 		linkedList list = new linkedList();
-
-// 		//
-// 		// ******INSERTION******
-// 		//
-
-// 		// Insert the values
-// 		list = insert(list, 1);
-// 		list = insert(list, 2);
-// 		list = insert(list, 3);
-// 		list = insert(list, 4);
-// 		list = insert(list, 5);
-// 		list = insert(list, 6);
-// 		list = insert(list, 7);
-// 		list = insert(list, 8);
-
-// 		// Print the linkedList
-// 		printList(list);
-
-// 		//
-// 		// ******DELETION BY KEY******
-// 		//
-
-// 		// Delete node with value 1
-// 		// In this case the key is ***at head***
-// 		deleteByKey(list, 1);
-
-// 		// Print the linkedList
-// 		printList(list);
-
-// 		// Delete node with value 4
-// 		// In this case the key is present ***in the
-// 		// middle***
-// 		deleteByKey(list, 4);
-
-// 		// Print the linkedList
-// 		printList(list);
-
-// 		// Delete node with value 10
-// 		// In this case the key is ***not present***
-// 		deleteByKey(list, 10);
-
-// 		// Print the linkedList
-// 		printList(list);
-
-// 		//
-// 		// ******DELETION AT POSITION******
-// 		//
-
-// 		// Delete node at position 0
-// 		// In this case the key is ***at head***
-// 		deleteAtPosition(list, 0);
-
-// 		// Print the linkedList
-// 		printList(list);
-
-// 		// Delete node at position 2
-// 		// In this case the key is present ***in the
-// 		// middle***
-// 		deleteAtPosition(list, 2);
-
-// 		// Print the linkedList
-// 		printList(list);
-
-// 		// Delete node at position 10
-// 		// In this case the key is ***not present***
-// 		deleteAtPosition(list, 10);
-
-// 		// Print the linkedList
-// 		printList(list);
-// 	}
-// }
-
-
-
-// public class linkedList {
+// class test {
 //     public static void main(String[] args) {
 //         LinkedList<String> ll = new LinkedList<>();
+//         ArrayList<Integer> arr = new ArrayList<>();
 
 //         ll.add("A");
 //         ll.add("B");
@@ -471,7 +295,6 @@ public class linkedList{
 //         ll.addLast("C");
 //         ll.addFirst("D");
 //         ll.add(2,"E");
-//         ll.add
 
 //         System.out.println(ll);
 
