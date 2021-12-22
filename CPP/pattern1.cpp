@@ -10,11 +10,11 @@ using namespace std;
 int main(){
     int n;
     cin>>n;
-    
-    for(int i=0;i<n;i++){
-        for(int j=0;j<3;j++){
-            char temp = 'A'+j;
-            cout<<temp;
+
+    for(int i=n-1;i>=0;i--){
+        char ch='A'+i;
+        for(int j=i;j<n;j++){
+            cout<<ch++;
         }
         cout<<endl;
     }
